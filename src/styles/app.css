@@ -1,0 +1,151 @@
+body, html, #root {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  overflow: hidden;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: row;
+  width: 200%;
+  height: 100vh;
+  transition: transform 0.5s ease-in-out;
+  transform: translateX(0%);
+}
+
+.app-container.shift-left {
+  transform: translateX(-50%);
+}
+
+.card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  width: 100%;
+  max-width: 500px;
+  transition: all 0.5s ease;
+  text-align: center;
+}
+
+.screen {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  gap: 50px;
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  background-color: #ffffff;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Service Info Card Layout */
+.service-info-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background-color: #f4f4f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+.service-info-card h2 {
+  font-size: 24px;
+  color: #312C51;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.client-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.input-field {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+.input-field:focus {
+  border-color: #97CBDC;
+  outline: none;
+}
+
+textarea.input-field {
+  height: 100px;
+  resize: none;
+}
+
+.submit-btn {
+  padding: 12px 20px;
+  background-color: #004581;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.submit-btn:hover {
+  background-color: #018ADB;
+}
+
+.submit-btn:active {
+  background-color: #97CBDC;
+}
+
+/* Container to hold the card and buttons outside */
+.order-summary-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.card h2 {
+  font-size: 24px;
+  color: #312C51;
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.receipt-text {
+  white-space: pre-wrap;
+  text-align: center;
+  margin-bottom: 20px;
+  width: 100%;
+  word-wrap: break-word;
+  font-size: 14px;
+}
+
+@media (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+    width: 100%;
+    transform: none !important;
+  }
+
+  .screen {
+    width: 100%;
+    height: auto;
+  }
+}
