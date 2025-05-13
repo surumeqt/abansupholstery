@@ -15,15 +15,19 @@ function App() {
 
   const handleSaveImage = async (base64) => {
     const dataUrl = base64;
-  
-    await saveReceipt({
-      receiptUrl: dataUrl,
-      company: serviceData.companyInfo.name,
-      TIN: serviceData.companyInfo.tin,
-      ORnumber: serviceData.orNumber,
-      companyAddress: serviceData.companyInfo.address,
-      date: serviceData.date,
-    });
+    try {
+      await saveReceipt({
+        receiptUrl: dataUrl,
+        company: serviceData.companyInfo.name,
+        TIN: serviceData.companyInfo.tin,
+        ORnumber: serviceData.orNumber,
+        companyAddress: serviceData.companyInfo.address,
+        date: serviceData.date,
+      });
+    }
+    catch (error) {
+      console.error('Error saving receipt:', error);
+    }
   };
   
   const handleServiceSubmit = (data) => {

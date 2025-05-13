@@ -11,7 +11,7 @@ export const saveReceipt = mutation({
     date: v.string(),
   },
   handler: async (ctx, args) => {
-    await ctx.db.insert('receipts', {
+    await ctx.db.insert('CompanyReceipts', {
       receiptUrl: args.receiptUrl,
       company: args.company,
       TIN: args.TIN,
