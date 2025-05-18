@@ -19,6 +19,7 @@ const OrderSummary = ({ data, onReset, onSaveImage }) => {
       setIsSaved(true);
     } catch (error) {
       console.error("Failed to capture and save receipt:", error);
+      setIsSaved(false);
     } finally {
       setIsSaving(false);
     }

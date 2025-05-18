@@ -27,6 +27,7 @@ function App() {
     }
     catch (error) {
       console.error('Error saving receipt:', error);
+      throw error;
     }
   };
   
