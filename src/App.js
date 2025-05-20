@@ -6,12 +6,11 @@ import { useMutation } from 'convex/react';
 import { api } from './convex/_generated/api';
 import './styles/app.css';
 
-
 function App() {
   const [serviceData, setServiceData] = useState(null);
   const [showSummary, setShowSummary] = useState(false);
   const [orNumber, setOrNumber] = useState('');
-  const saveReceipt = useMutation(api.companyReceipts.saveReceipt);
+  const saveReceipt = useMutation(api.CompanyReceipts.saveReceipt);
 
   const handleSaveImage = async (base64) => {
     const dataUrl = base64;
