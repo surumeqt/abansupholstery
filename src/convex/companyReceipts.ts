@@ -11,42 +11,32 @@ export const saveReceipt = mutation({
     date: v.string(),
     clientName: v.string(),
     clientAddress: v.optional(v.string()),
+    serviceType: v.string(), // Added serviceType
     serviceName: v.string(),
     serviceDetails: v.optional(v.string()),
     price: v.number(),
   },
   handler: async (ctx, args) => {
-    // Ensure this table name matches your schema exactly: 'CompanyReceipts'
     await ctx.db.insert('CompanyReceipts', {
       receiptUrl: args.receiptUrl,
       company: args.company,
       TIN: args.TIN,
-      ORnumber: args.ORnumber, // Matches schema's ORnumber
+      ORnumber: args.ORnumber,
       companyAddress: args.companyAddress,
       date: args.date,
       clientName: args.clientName,
       clientAddress: args.clientAddress,
       serviceName: args.serviceName,
       serviceDetails: args.serviceDetails,
-      price: args.price, // Matches schema's price
+      serviceType: args.serviceType,
+      price: args.price,
     });
-  },
-});
-
-export const getByReceiptId = query({
-  args: { receiptId: v.string() },
-  handler: async (ctx, args) => {
-    return await ctx.db
-      .query("CompanyReceipts") // Matches schema's CompanyReceipts
-      .withIndex("by_ORnumber", (q) => q.eq("ORnumber", args.receiptId)) // Uses ORnumber for index
-      .order("desc")
-      .first();
   },
 });
 
 export const listReceipts = query({
   args: {},
   handler: async (ctx) => {
-    return await ctx.db.query("CompanyReceipts").collect(); // Matches schema's CompanyReceipts
+    return await ctx.db.query("CompanyReceipts").collect();
   },
 });

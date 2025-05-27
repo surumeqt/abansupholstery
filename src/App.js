@@ -10,16 +10,14 @@ import './styles/app.css';
 function App() {
   const [serviceData, setServiceData] = useState(null);
   const [showSummary, setShowSummary] = useState(false);
-  const [orNumber, setOrNumber] = useState(''); // State to hold OR number for QRCodeDisplay
+  const [orNumber, setOrNumber] = useState('');
   const saveReceipt = useMutation(api.CompanyReceipts.saveReceipt);
-  const [showSavedReceipts, setShowSavedReceipts] = useState(false); // State to control SavedReceipts visibility
-
-  // --- DEFINITIONS FOR MISSING HANDLER FUNCTIONS ---
+  const [showSavedReceipts, setShowSavedReceipts] = useState(false);
 
   const handleServiceSubmit = (data) => {
     setServiceData(data);
     setShowSummary(true);
-    setOrNumber(data.orNumber); // Set OR number here for QRCodeDisplay
+    setOrNumber(data.orNumber);
   };
 
   const handleReset = () => {
@@ -35,8 +33,6 @@ function App() {
     setOrNumber(''); // Clear OR number
   };
 
-  // --- CORRECTED handleSaveImage FUNCTION ---
-
   const handleSaveImage = async (base64) => {
     const dataUrl = base64;
     try {
@@ -48,12 +44,12 @@ function App() {
         ORnumber: serviceData.orNumber,
         companyAddress: serviceData.companyInfo.address,
         date: serviceData.date,
-        // *** THESE FIELDS ARE CRUCIAL AND WERE MISSING IN YOUR PROVIDED SNIPPET ***
         clientName: serviceData.clientName,
-        clientAddress: serviceData.clientAddress, // This is optional in schema, so null/undefined/empty string is fine
+        clientAddress: serviceData.clientAddress,
         serviceName: serviceData.serviceName,
-        serviceDetails: serviceData.serviceDetails, // This is optional in schema, so null/undefined/empty string is fine
-        price: parseFloat(serviceData.price), // Ensure it's a number
+        serviceDetails: serviceData.serviceDetails,
+        serviceType: serviceData.companyInfo.serviceType,
+        price: parseFloat(serviceData.price),
       });
       console.log('Receipt saved successfully!');
     } catch (error) {

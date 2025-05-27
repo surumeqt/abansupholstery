@@ -1,2 +1,2 @@
-import { saveReceipt } from './companyReceipts';
+import { saveReceipt } from './CompanyReceipts';
 export { saveReceipt };

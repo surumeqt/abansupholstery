@@ -1,6 +1,5 @@
-import React from 'react';
-import { useQuery } from 'convex/react'; // Import useQuery
-import { api } from 'C:/abansupholstery/src/convex/_generated/api.js'; // Adjust path based on your Convex setup
+import { useQuery } from 'convex/react';
+import { api } from '../convex/_generated/api';
 
 // Helper function to format currency
 const formatCurrency = (amount) => {

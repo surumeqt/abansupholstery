@@ -13,7 +13,7 @@ import type {
   FilterApi,
   FunctionReference,
 } from "convex/server";
-import type * as companyReceipts from "../companyReceipts.js";
+import type * as companyReceipts from "../CompanyReceipts.js";
 import type * as index from "../index.js";
 
 /**

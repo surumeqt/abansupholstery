@@ -3,11 +3,10 @@ import React, { useState } from 'react';
 const ServiceInfo = ({ onSubmit }) => {
   const [clientName, setClientName] = useState('');
   const [clientAddress, setClientAddress] = useState('');
-  const [serviceName, setServiceName] = useState(''); // This will now hold the selected service
+  const [serviceName, setServiceName] = useState('');
   const [serviceDetails, setServiceDetails] = useState('');
   const [price, setPrice] = useState('');
 
-  // Define your list of services here
   const serviceOptions = [
     "Sofa Reupholstery",
     "Chair Reupholstery",
@@ -17,13 +16,15 @@ const ServiceInfo = ({ onSubmit }) => {
     "Fabric Cleaning",
     "Boat Upholstery",
     "Car Interior Upholstery",
-    "Other" // Added an 'Other' option for flexibility
+    "Other"
   ];
 
   const companyInfo = {
     name: "Aban's General UpHolstery",
     tin: '987-654-3210',
     address: 'no. 62 E 20th St., Olongapo, Philippines',
+    serviceType: 'Upholstery Services',
+    contact: '0912-345-6789',
   };
 
   const handleCheckout = () => {
