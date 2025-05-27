@@ -28,7 +28,7 @@ const OrderSummary = ({ data, onReset, onSaveImage }) => {
   return (
     <>
       <div className="card" ref={cardRef}>
-        <h2>Order Summary</h2>
+        <h2>Service Receipt</h2>
         <pre className="receipt-text">
 {`==================== RECEIPT ====================
 Company: ${data.companyInfo.name}
@@ -51,7 +51,7 @@ Thank you for your business!
 
       <div className="buttons-group">
         <button onClick={handleSave} disabled={isSaving || isSaved}>
-        {isSaving ? "Saving..." : isSaved ? "Saved!" : "Save to Convex"}
+        {isSaving ? "Saving..." : isSaved ? "Saved!" : "Save The Receipt"}
         </button>
         {isSaved && <button onClick={onReset}>Reset</button>}
       </div>

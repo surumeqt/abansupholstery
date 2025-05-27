@@ -1,60 +1,127 @@
+/* Global Resets */
 body, html, #root {
   margin: 0;
   padding: 0;
   height: 100%;
-  font-family: Arial, sans-serif;
+  font-family: 'Inter', Arial, sans-serif; /* Changed to Inter for better aesthetics */
   background-color: #f5f5f5;
-  overflow: hidden;
+  overflow: hidden; /* Crucial for the sliding effect */
 }
 
+/* Main Heading Container (for "Aban's General Upholstery" at the very top) */
+.main-heading-container {
+  width: 100%;
+  text-align: center;
+  padding: 20px 0;
+  background-color: #ffffff; /* White background for the header */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.main-heading {
+  color: #002d72; /* Dark blue color, matching your brand */
+  font-size: 2.5em;
+  margin: 0; /* Remove default margin */
+}
+
+/* App Container for Sliding Screens */
 .app-container {
   display: flex;
-  flex-direction: row;
-  width: 200%;
-  height: 100vh;
+  flex-direction: row; /* Arranges screens horizontally */
+  width: 200%; /* Allows for two screens to be side-by-side */
+  height: calc(100vh - 80px); /* Adjust height to account for the header */
   transition: transform 0.5s ease-in-out;
   transform: translateX(0%);
 }
 
 .app-container.shift-left {
-  transform: translateX(-50%);
+  transform: translateX(-50%); /* Shifts to show the second screen */
 }
 
-.card {
+/* Individual Screen Styles */
+.screen {
+  width: 50%; /* Each screen takes half of the app-container's 200% width */
+  height: 100%;
+  display: flex; /* Flex container for its children (e.g., left-panel-content and ServiceInfo) */
+  justify-content: center; /* Centers content horizontally within the screen */
+  align-items: center; /* Centers content vertically within the screen */
+  gap: 50px; /* Space between the left panel and the form */
+  overflow-y: auto; /* Allows vertical scrolling if content overflows */
+  background-color: #ffffff; /* White background for the screen area */
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Left Panel Content (Logo and Button) */
+.left-panel-content {
+  display: flex;
+  flex-direction: column; /* Stacks logo, text, and button vertically */
+  align-items: center; /* Centers items horizontally within this panel */
+  padding: 20px;
+  flex-shrink: 0; /* Prevents this panel from shrinking */
+  width: 250px; /* Fixed width for the left panel */
+  text-align: center;
+}
+
+.logo-and-text-wrapper {
+  display: flex;
+  flex-direction: column; /* Stacks the logo image and tagline */
+  align-items: center; /* Centers them horizontally */
+  margin-bottom: 20px; /* Space between logo block and button */
+}
+
+.logo {
+  width: 200px; /* Your desired width */
+  height: auto; /* IMPORTANT: Maintain aspect ratio */
+  border-radius: 8px; /* Added rounded corners */
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  margin-bottom: 10px; /* Space between logo and tagline */
+}
+
+.logo-tagline {
+  font-size: 1.1em;
+  color: #333;
+  margin: 0; /* Remove default paragraph margin */
+  font-weight: 600;
+}
+
+.check-receipt {
+  padding: 12px 20px;
+  background-color: #004581; /* Dark blue button */
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  cursor: pointer;
+  width: fit-content; /* Button takes only content width */
+  min-width: 150px; /* Ensure a minimum width */
+  margin-top: 10px; /* Space from logo/text above */
+  transition: transform 0.3s ease-in-out, background-color 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.check-receipt:hover { /* Corrected selector: no space */
+  transform: scale(1.05);
+  background-color: #018ADB; /* Lighter blue on hover */
+}
+
+.check-receipt:active {
+  transform: scale(0.98);
+  background-color: #003366; /* Even darker on click */
+}
+
+/* Service Info Card Layout (used by ServiceInfo component) */
+.service-info-card {
   background: white;
   padding: 1.5rem;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   width: 100%;
-  max-width: 500px;
+  max-width: 500px; /* Max width for the form card */
   transition: all 0.5s ease;
-  text-align: center;
-}
-
-.screen {
-  width: 50%;
-  height: 100%;
-  display: flex;
-  gap: 50px;
-  justify-content: center;
-  align-items: center;
-  overflow-y: auto;
-  background-color: #ffffff;
-  padding: 20px;
-  box-sizing: border-box;
-}
-
-/* Service Info Card Layout */
-.service-info-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  background-color: #f4f4f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 100%;
-  max-width: 400px;
+  text-align: center; /* Centers text within the card */
+  display: flex; /* Make it a flex container */
+  flex-direction: column; /* Stack its children vertically */
+  align-items: center; /* Center items horizontally within the card */
 }
 
 .service-info-card h2 {
@@ -64,7 +131,7 @@ body, html, #root {
   text-align: center;
 }
 
-.client-info {
+.client-info { /* This class is not directly used in the provided JSX for service-info-card inputs */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -79,16 +146,18 @@ body, html, #root {
   border-radius: 6px;
   border: 1px solid #ccc;
   font-size: 16px;
+  box-sizing: border-box; /* Include padding/border in width */
 }
 
 .input-field:focus {
   border-color: #97CBDC;
   outline: none;
+  box-shadow: 0 0 0 3px rgba(151, 203, 220, 0.3); /* Focus ring */
 }
 
 textarea.input-field {
   height: 100px;
-  resize: none;
+  resize: vertical; /* Allow vertical resizing only */
 }
 
 .submit-btn {
@@ -99,19 +168,22 @@ textarea.input-field {
   border-radius: 6px;
   font-size: 16px;
   cursor: pointer;
-  width: 100%;
+  width: 100%; /* Button takes full width of its container (service-info-card) */
   margin-top: 10px;
+  transition: background-color 0.3s ease;
 }
 
 .submit-btn:hover {
+  transform: scale(1.05);
   background-color: #018ADB;
 }
 
 .submit-btn:active {
+  transform: scale(0.98);
   background-color: #97CBDC;
 }
 
-/* Container to hold the card and buttons outside */
+/* Order Summary Container (used by OrderSummary component) */
 .order-summary-container {
   display: flex;
   flex-direction: column;
@@ -119,9 +191,12 @@ textarea.input-field {
   padding: 20px;
   max-width: 500px;
   margin: 0 auto;
+  background: white; /* Added background for consistency */
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
-.card h2 {
+.card h2 { /* This rule seems generic, consider if it applies to .order-summary-container h2 or .service-info-card h2 */
   font-size: 24px;
   color: #312C51;
   margin-bottom: 20px;
@@ -137,15 +212,39 @@ textarea.input-field {
   font-size: 14px;
 }
 
+/* Responsive Adjustments */
 @media (max-width: 768px) {
   .app-container {
-    flex-direction: column;
-    width: 100%;
-    transform: none !important;
+    flex-direction: column; /* Stack screens vertically */
+    width: 100%; /* Each screen now takes full width */
+    height: auto; /* Auto height for stacked screens */
+    transform: none !important; /* Disable horizontal sliding on small screens */
   }
 
   .screen {
-    width: 100%;
-    height: auto;
+    width: 100%; /* Each screen takes full width */
+    height: auto; /* Auto height */
+    flex-direction: column; /* Stack left panel and form vertically within the screen */
+    gap: 30px; /* Reduce gap when stacked */
+    padding: 15px;
+  }
+
+  .main-heading {
+    font-size: 1.8em;
+  }
+
+  .left-panel-content {
+    width: 100%; /* Left panel takes full width when stacked */
+    padding: 10px;
+  }
+
+  .logo {
+    width: 150px; /* Smaller logo on small screens */
+  }
+
+  .service-info-card,
+  .order-summary-container {
+    max-width: 95%; /* Adjust max-width for better fit on small screens */
+    padding: 1rem;
   }
 }

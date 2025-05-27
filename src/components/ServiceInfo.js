@@ -3,9 +3,22 @@ import React, { useState } from 'react';
 const ServiceInfo = ({ onSubmit }) => {
   const [clientName, setClientName] = useState('');
   const [clientAddress, setClientAddress] = useState('');
-  const [serviceName, setServiceName] = useState('');
+  const [serviceName, setServiceName] = useState(''); // This will now hold the selected service
   const [serviceDetails, setServiceDetails] = useState('');
   const [price, setPrice] = useState('');
+
+  // Define your list of services here
+  const serviceOptions = [
+    "Sofa Reupholstery",
+    "Chair Reupholstery",
+    "Cushion Refilling",
+    "Custom Upholstery",
+    "Furniture Repair",
+    "Fabric Cleaning",
+    "Boat Upholstery",
+    "Car Interior Upholstery",
+    "Other" // Added an 'Other' option for flexibility
+  ];
 
   const companyInfo = {
     name: "Aban's General UpHolstery",
@@ -14,8 +27,16 @@ const ServiceInfo = ({ onSubmit }) => {
   };
 
   const handleCheckout = () => {
-    if (!clientName || !serviceName || !price) {
-      alert('Please fill in required fields.');
+    // Basic validation for required fields
+    if (!clientName || !serviceName || serviceName === "" || !price) {
+      alert('Please fill in all required fields (Client Name, Service Name, Price).');
+      return;
+    }
+
+    // *** NEW: Robust price validation ***
+    const parsedPrice = parseFloat(price);
+    if (isNaN(parsedPrice)) {
+      alert('Please enter a valid number for the Service Price.');
       return;
     }
 
@@ -32,7 +53,7 @@ const ServiceInfo = ({ onSubmit }) => {
       clientAddress,
       serviceName,
       serviceDetails,
-      price: parseFloat(price),
+      price: parsedPrice, // Use the parsed and validated price
       date: currentDate,
       orNumber: generateORNumber(),
     };
@@ -40,7 +61,7 @@ const ServiceInfo = ({ onSubmit }) => {
     onSubmit(receiptData);
     setClientName('');
     setClientAddress('');
-    setServiceName('');
+    setServiceName(''); // Reset service name to empty string
     setServiceDetails('');
     setPrice('');
   };
@@ -52,7 +73,7 @@ const ServiceInfo = ({ onSubmit }) => {
         <input
           className="input-field"
           value={clientName}
-          placeholder="Client Name"
+          placeholder="Client Name *" // Added asterisk for required
           onChange={(e) => setClientName(e.target.value)}
         />
         <input
@@ -63,25 +84,31 @@ const ServiceInfo = ({ onSubmit }) => {
         />
       </div>
 
-      <input
-        className="input-field"
+      <select
+        className="input-field" // Reuse input field styles
         value={serviceName}
-        placeholder="Service Name"
         onChange={(e) => setServiceName(e.target.value)}
-      />
-      
+      >
+        <option value="" disabled>Select a Service *</option> {/* Default disabled option */}
+        {serviceOptions.map((service, index) => (
+          <option key={index} value={service}>
+            {service}
+          </option>
+        ))}
+      </select>
+
       <textarea
         className="input-field service-details"
         value={serviceDetails}
         placeholder="Service Details"
         onChange={(e) => setServiceDetails(e.target.value)}
       />
-      
+
       <input
-        type="number"
+        type="number" // Ensure keyboard is numeric on mobile
         className="input-field"
         value={price}
-        placeholder="Service Price"
+        placeholder="Service Price *" // Added asterisk for required
         onChange={(e) => setPrice(e.target.value)}
       />
 
