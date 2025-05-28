@@ -3,6 +3,7 @@ import ServiceInfo from './components/ServiceInfo';
 import OrderSummary from './components/OrderSummary';
 import QRCodeDisplay from './components/QRCodeDisplay';
 import SavedReceipts from './components/SavedReceipts';
+import Analytics from './components/Analytics'; // Ensure Analytics is imported
 import { useMutation } from 'convex/react';
 import { api } from './convex/_generated/api';
 import './styles/app.css';
@@ -13,6 +14,7 @@ function App() {
   const [orNumber, setOrNumber] = useState('');
   const saveReceipt = useMutation(api.CompanyReceipts.saveReceipt);
   const [showSavedReceipts, setShowSavedReceipts] = useState(false);
+  const [showAnalytics, setShowAnalytics] = useState(false); // Declare showAnalytics state
   const [animateSummary, setAnimateSummary] = useState(false);
 
   const handleServiceSubmit = (data) => {
@@ -38,6 +40,7 @@ function App() {
   const handleShowSavedReceipts = () => {
     setShowSavedReceipts(true);
     setShowSummary(false);
+    setShowAnalytics(false); // Hide analytics when showing saved receipts
     setServiceData(null);
     setOrNumber('');
     setAnimateSummary(false);
@@ -46,6 +49,11 @@ function App() {
   const handleSaveImage = async (base64) => {
     const dataUrl = base64;
     try {
+      // Add a check to ensure serviceData is not null before proceeding
+      if (!serviceData) {
+        console.error("Service data is missing, cannot save receipt.");
+        return; // Exit if serviceData is null
+      }
       await saveReceipt({
         receiptUrl: dataUrl,
         company: serviceData.companyInfo.name,
@@ -68,6 +76,7 @@ function App() {
 
   const handleGoBackToMainForm = () => {
     setShowSavedReceipts(false);
+    setShowAnalytics(false); // Hide analytics when going back to main form
     setShowSummary(false);
     setServiceData(null);
     setOrNumber('');
@@ -75,7 +84,12 @@ function App() {
   };
 
   const handleShowAnalytics = () => {
-    alert('Analytics button clicked!');
+    setShowAnalytics(true); // Show analytics component
+    setShowSavedReceipts(false); // Hide saved receipts
+    setShowSummary(false); // Hide summary
+    setServiceData(null); // Clear service data
+    setOrNumber(''); // Clear OR number
+    setAnimateSummary(false);
   };
 
   return (
@@ -92,7 +106,14 @@ function App() {
           </button>
           <SavedReceipts />
         </div>
-      ) : (
+      ) : showAnalytics ? ( // New condition to render Analytics when showAnalytics is true
+        <div className="analytics-view full-screen-content">
+          <button className="back-button" onClick={handleGoBackToMainForm}>
+            ← Back to Main Form
+          </button>
+          <Analytics />
+        </div>
+      ) : ( // This block now covers the initial view AND the summary view, still wrapped in app-content-wrapper
         <div className={`app-content-wrapper ${showSummary ? 'show-summary' : ''} ${animateSummary ? 'animate-summary' : ''}`}>
           <div className="initial-view-screen">
             <div className="left-panel-content">
@@ -114,10 +135,10 @@ function App() {
               <>
                 <div className='summary-container'>
                   <div className='order-summary'>
-                  <OrderSummary data={serviceData} onReset={handleReset} onSaveImage={handleSaveImage} />
+                    <OrderSummary data={serviceData} onReset={handleReset} onSaveImage={handleSaveImage} />
                   </div>
                   <div className='qr-display'>
-                  <QRCodeDisplay data={orNumber} />
+                    <QRCodeDisplay data={orNumber} />
                   </div>
                 </div>
               </>
