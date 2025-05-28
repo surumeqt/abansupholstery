@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import html2canvas from "html2canvas";
 
+
 const OrderSummary = ({ data, onReset, onSaveImage }) => {
   const cardRef = useRef(null);
   const [isSaved, setIsSaved] = useState(false);

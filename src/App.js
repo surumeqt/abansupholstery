@@ -112,8 +112,14 @@ function App() {
           <div className="summary-view-screen">
             {serviceData && (
               <>
-                <OrderSummary data={serviceData} onReset={handleReset} onSaveImage={handleSaveImage} />
-                <QRCodeDisplay data={orNumber} />
+                <div className='summary-container'>
+                  <div className='order-summary'>
+                  <OrderSummary data={serviceData} onReset={handleReset} onSaveImage={handleSaveImage} />
+                  </div>
+                  <div className='qr-display'>
+                  <QRCodeDisplay data={orNumber} />
+                  </div>
+                </div>
               </>
             )}
           </div>
