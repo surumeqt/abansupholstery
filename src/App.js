@@ -5,7 +5,7 @@ import QRCodeDisplay from './components/QRCodeDisplay';
 import SavedReceipts from './components/SavedReceipts';
 import { useMutation } from 'convex/react';
 import { api } from './convex/_generated/api';
-import './styles/app.css'; // Ensure you have the correct path to your CSS file
+import './styles/app.css';
 
 function App() {
   const [serviceData, setServiceData] = useState(null);
@@ -13,30 +13,39 @@ function App() {
   const [orNumber, setOrNumber] = useState('');
   const saveReceipt = useMutation(api.CompanyReceipts.saveReceipt);
   const [showSavedReceipts, setShowSavedReceipts] = useState(false);
+  const [animateSummary, setAnimateSummary] = useState(false);
 
   const handleServiceSubmit = (data) => {
     setServiceData(data);
-    setShowSummary(true); // This will now switch to displaying the summary screen
     setOrNumber(data.orNumber);
+    setAnimateSummary(true);
+    setTimeout(() => {
+      setShowSummary(true);
+      setAnimateSummary(false);
+    }, 500);
   };
 
   const handleReset = () => {
-    setServiceData(null);
-    setShowSummary(false); // This will now switch back to displaying the initial screen
-    setOrNumber('');
+    setAnimateSummary(true);
+    setTimeout(() => {
+      setServiceData(null);
+      setShowSummary(false);
+      setOrNumber('');
+      setAnimateSummary(false);
+    }, 500);
   };
 
   const handleShowSavedReceipts = () => {
     setShowSavedReceipts(true);
-    setShowSummary(false); // Hide summary if it's open
-    setServiceData(null); // Clear service data when viewing saved receipts
-    setOrNumber(''); // Clear OR number
+    setShowSummary(false);
+    setServiceData(null);
+    setOrNumber('');
+    setAnimateSummary(false);
   };
 
   const handleSaveImage = async (base64) => {
     const dataUrl = base64;
     try {
-      // IMPORTANT: Ensure all fields expected by the Convex 'saveReceipt' mutation are passed
       await saveReceipt({
         receiptUrl: dataUrl,
         company: serviceData.companyInfo.name,
@@ -48,76 +57,66 @@ function App() {
         clientAddress: serviceData.clientAddress,
         serviceName: serviceData.serviceName,
         serviceDetails: serviceData.serviceDetails,
-        serviceType: serviceData.companyInfo.serviceType, // Ensure this is correctly passed
+        serviceType: serviceData.companyInfo.serviceType,
         price: parseFloat(serviceData.price),
       });
       console.log('Receipt saved successfully!');
     } catch (error) {
       console.error('Error saving receipt:', error);
-      // It's better to catch and log errors here. Re-throwing is optional.
     }
   };
 
   const handleGoBackToMainForm = () => {
     setShowSavedReceipts(false);
-    setShowSummary(false); // Ensure summary is hidden when going back to main form
-    setServiceData(null); // Reset service data
-    setOrNumber(''); // Reset OR number
+    setShowSummary(false);
+    setServiceData(null);
+    setOrNumber('');
+    setAnimateSummary(false);
   };
 
-  // Placeholder for analytics button click handler
   const handleShowAnalytics = () => {
-    alert('Analytics button clicked!'); // Replace with actual analytics view logic
+    alert('Analytics button clicked!');
   };
 
   return (
     <>
-      {/* Main Heading Container: Logo and Title at the very top */}
       <div className="main-heading-container">
-        {/* Logo placed first to appear on the left */}
         <img className="logo" src="/logo(aban).jpg" alt="Aban's General Upholstery Logo" />
-        {/* Main heading */}
         <h1 className="main-heading">Aban's General Upholstery</h1>
       </div>
 
-      {/* Conditional rendering for the main content area below the header */}
       {showSavedReceipts ? (
         <div className="saved-receipts-view full-screen-content">
-          <button
-            className="back-button"
-            onClick={handleGoBackToMainForm}
-          >
+          <button className="back-button" onClick={handleGoBackToMainForm}>
             ← Back to Main Form
           </button>
           <SavedReceipts />
         </div>
-      ) : showSummary ? (
-        <div className="summary-view-screen full-screen-content">
-          {serviceData && (
-            <>
-              <OrderSummary data={serviceData} onReset={handleReset} onSaveImage={handleSaveImage} />
-              <QRCodeDisplay data={orNumber} />
-            </>
-          )}
-        </div>
       ) : (
-        <div className="initial-view-screen full-screen-content">
-          {/* Left Panel Content: Buttons are now direct children */}
-          <div className="left-panel-content">
-            <button
-              className="check-receipt"
-              onClick={handleShowSavedReceipts}
-            >
-              Saved Receipts
-            </button>
-            <button
-              className="analytics"
-              onClick={handleShowAnalytics}
-            >
-              Analytics
-            </button>
+        <div className={`app-content-wrapper ${showSummary ? 'show-summary' : ''} ${animateSummary ? 'animate-summary' : ''}`}>
+          <div className="initial-view-screen">
+            <div className="left-panel-content">
+              <div className="left-panel-button-grid">
+                <button className="check-receipt" onClick={handleShowSavedReceipts}>
+                  Saved Receipts
+                </button>
+                <button className="analytics" onClick={handleShowAnalytics}>
+                  Analytics
+                </button>
+              </div>
+            </div>
+            <div className="right-panel-content">
+              <ServiceInfo onSubmit={handleServiceSubmit} />
+            </div>
           </div>
-          <ServiceInfo onSubmit={handleServiceSubmit} />
+          <div className="summary-view-screen">
+            {serviceData && (
+              <>
+                <OrderSummary data={serviceData} onReset={handleReset} onSaveImage={handleSaveImage} />
+                <QRCodeDisplay data={orNumber} />
+              </>
+            )}
+          </div>
         </div>
       )}
     </>
