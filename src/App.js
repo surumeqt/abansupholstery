@@ -5,7 +5,7 @@ import QRCodeDisplay from './components/QRCodeDisplay';
 import SavedReceipts from './components/SavedReceipts';
 import { useMutation } from 'convex/react';
 import { api } from './convex/_generated/api';
-import './styles/app.css';
+import './styles/app.css'; // Ensure you have the correct path to your CSS file
 
 function App() {
   const [serviceData, setServiceData] = useState(null);
@@ -16,13 +16,13 @@ function App() {
 
   const handleServiceSubmit = (data) => {
     setServiceData(data);
-    setShowSummary(true);
+    setShowSummary(true); // This will now switch to displaying the summary screen
     setOrNumber(data.orNumber);
   };
 
   const handleReset = () => {
     setServiceData(null);
-    setShowSummary(false);
+    setShowSummary(false); // This will now switch back to displaying the initial screen
     setOrNumber('');
   };
 
@@ -48,7 +48,7 @@ function App() {
         clientAddress: serviceData.clientAddress,
         serviceName: serviceData.serviceName,
         serviceDetails: serviceData.serviceDetails,
-        serviceType: serviceData.companyInfo.serviceType,
+        serviceType: serviceData.companyInfo.serviceType, // Ensure this is correctly passed
         price: parseFloat(serviceData.price),
       });
       console.log('Receipt saved successfully!');
@@ -65,14 +65,24 @@ function App() {
     setOrNumber(''); // Reset OR number
   };
 
+  // Placeholder for analytics button click handler
+  const handleShowAnalytics = () => {
+    alert('Analytics button clicked!'); // Replace with actual analytics view logic
+  };
+
   return (
     <>
+      {/* Main Heading Container: Logo and Title at the very top */}
       <div className="main-heading-container">
+        {/* Logo placed first to appear on the left */}
+        <img className="logo" src="/logo(aban).jpg" alt="Aban's General Upholstery Logo" />
+        {/* Main heading */}
         <h1 className="main-heading">Aban's General Upholstery</h1>
       </div>
 
+      {/* Conditional rendering for the main content area below the header */}
       {showSavedReceipts ? (
-        <div className="saved-receipts-view">
+        <div className="saved-receipts-view full-screen-content">
           <button
             className="back-button"
             onClick={handleGoBackToMainForm}
@@ -81,33 +91,33 @@ function App() {
           </button>
           <SavedReceipts />
         </div>
+      ) : showSummary ? (
+        <div className="summary-view-screen full-screen-content">
+          {serviceData && (
+            <>
+              <OrderSummary data={serviceData} onReset={handleReset} onSaveImage={handleSaveImage} />
+              <QRCodeDisplay data={orNumber} />
+            </>
+          )}
+        </div>
       ) : (
-        <div className={`app-container ${showSummary ? 'shift-left' : ''}`}>
-
-          <div className="screen initial-view-screen">
-            <div className="left-panel-content">
-              <div className="logo-and-text-wrapper">
-                <img className="logo" src="/logo(aban).jpg" alt="Aban's General Upholstery Logo" />
-                <p className="logo-tagline">Aban's General Upholstery</p>
-              </div>
-              <button
-                className="check-receipt"
-                onClick={handleShowSavedReceipts} // Using the defined function
-              >
-                Saved Receipts
-              </button>
-            </div>
-            <ServiceInfo onSubmit={handleServiceSubmit} /> {/* Using the defined function */}
+        <div className="initial-view-screen full-screen-content">
+          {/* Left Panel Content: Buttons are now direct children */}
+          <div className="left-panel-content">
+            <button
+              className="check-receipt"
+              onClick={handleShowSavedReceipts}
+            >
+              Saved Receipts
+            </button>
+            <button
+              className="analytics"
+              onClick={handleShowAnalytics}
+            >
+              Analytics
+            </button>
           </div>
-
-          <div className="screen summary-view-screen">
-            {serviceData && (
-              <>
-                <OrderSummary data={serviceData} onReset={handleReset} onSaveImage={handleSaveImage} /> {/* Using the defined function */}
-                <QRCodeDisplay data={orNumber} />
-              </>
-            )}
-          </div>
+          <ServiceInfo onSubmit={handleServiceSubmit} />
         </div>
       )}
     </>
