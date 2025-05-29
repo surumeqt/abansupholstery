@@ -100,7 +100,7 @@ function App() {
       </div>
 
       {showSavedReceipts ? (
-        <div className="saved-receipts-view full-screen-content">
+        <div className="saved-receipts-view">
           <button className="back-button" onClick={handleGoBackToMainForm}>
             ← Back to Main Form
           </button>

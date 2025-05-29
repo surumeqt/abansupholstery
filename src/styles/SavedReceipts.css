@@ -1,0 +1,111 @@
+/* SavedReceipts.css */
+
+/* --- General Layout --- */
+.receipts-page-container {
+  height: 120vh;
+  background-color: #f3f4f6; /* bg-gray-100 */
+  padding: 1rem; /* p-4 */
+  font-family: 'Inter', sans-serif; /* font-inter */
+}
+
+@media (min-width: 640px) { /* sm:p-8 */
+  .receipts-page-container {
+    padding: 2rem;
+  }
+}
+
+.receipts-card-container {
+  max-width: 64rem; /* max-w-4xl */
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #ffffff; /* bg-white */
+  border-radius: 0.5rem; /* rounded-lg */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-xl */
+  padding: 1.5rem; /* p-6 */
+  /* Added: If the entire card needs to scroll vertically */
+  height: 500px; /* Adjust as needed, makes the card itself scrollable */
+  overflow-y: auto; /* Adds vertical scrollbar if content exceeds max-height */
+}
+
+@media (min-width: 640px) { /* sm:p-8 */
+  .receipts-card-container {
+    padding: 2rem;
+  }
+}
+
+.receipts-title {
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: 700; /* font-bold */
+  color: #1f2937; /* text-gray-800 */
+  margin-bottom: 1.5rem; /* mb-6 */
+  text-align: center; /* text-center */
+}
+
+/* --- Loading and Error Messages --- */
+.message-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f3f4f6; /* bg-gray-100 */
+  font-family: 'Inter', sans-serif; /* font-inter */
+}
+
+.loading-message {
+  font-size: 1.125rem; /* text-lg */
+  font-weight: 600; /* font-semibold */
+  color: #4b5563; /* text-gray-700 */
+}
+
+.error-message {
+  font-size: 1.125rem; /* text-lg */
+  font-weight: 600; /* font-semibold */
+  color: #dc2626; /* text-red-600 */
+}
+
+.no-receipts-message {
+  text-align: center;
+  color: #4b5563; /* text-gray-600 */
+  font-size: 1.125rem; /* text-lg */
+}
+
+/* --- Receipts Grid --- */
+.receipts-grid {
+  display: grid;
+  grid-template-columns: 1fr; /* grid-cols-1 */
+  gap: 1.5rem; /* gap-6 */
+  /* If you want the grid itself to scroll horizontally on small screens */
+  /* overflow-x: auto; */
+}
+
+@media (min-width: 768px) { /* md:grid-cols-2 */
+  .receipts-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) { /* lg:grid-cols-3 */
+  .receipts-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.receipt-item {
+  background-color: #f9fafb; /* bg-gray-50 */
+  padding: 1.25rem; /* p-5 */
+  border-radius: 0.5rem; /* rounded-lg */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+  border: 1px solid #e5e7eb; /* border border-gray-200 */
+  /* Allow horizontal scrolling for very long lines within the receipt */
+  overflow-x: auto; /* overflow-x-auto */
+  /* Make individual receipt items scrollable vertically if their content is too long */
+  max-height: 300px; /* Adjust as needed, or use a percentage like 60vh */
+  overflow-y: auto;
+}
+
+.receipt-text {
+  font-size: 0.875rem; /* text-sm */
+  color: #1f2937; /* text-gray-800 */
+  line-height: 1.625; /* leading-relaxed */
+  white-space: pre-wrap; /* whitespace-pre-wrap */
+}

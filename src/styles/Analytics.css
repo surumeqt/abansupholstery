@@ -1,0 +1,206 @@
+/* Analytics.css */
+
+.analytics-container {
+  min-height: 100vh;
+  background-color: #f3f4f6; /* bg-gray-100 */
+  padding: 1rem; /* p-4 */
+}
+
+@media (min-width: 640px) { /* sm:p-8 */
+  .analytics-container {
+    padding: 2rem;
+  }
+}
+
+.analytics-card {
+  max-width: 72rem; /* max-w-6xl */
+  margin-left: auto;
+  margin-right: auto;
+  background-color: #ffffff; /* bg-white */
+  border-radius: 0.5rem; /* rounded-lg */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05); /* shadow-xl */
+  padding: 1.5rem; /* p-6 */
+}
+
+@media (min-width: 640px) { /* sm:p-8 */
+  .analytics-card {
+    padding: 2rem;
+  }
+}
+
+.analytics-title {
+  font-size: 1.875rem; /* text-3xl */
+  font-weight: 700; /* font-bold */
+  color: #1f2937; /* text-gray-800 */
+  margin-bottom: 1.5rem; /* mb-6 */
+  text-align: center; /* text-center */
+}
+
+.no-data-message {
+  text-align: center;
+  color: #4b5563; /* text-gray-600 */
+  font-size: 1.125rem; /* text-lg */
+}
+
+.content-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* gap-6 */
+}
+
+@media (min-width: 1024px) { /* lg:flex-row */
+  .content-layout {
+    flex-direction: row;
+  }
+}
+
+.dashboard-section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem; /* gap-6 */
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem; /* gap-6 */
+}
+
+@media (min-width: 768px) { /* md:grid-cols-2 */
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.info-card {
+  padding: 1.5rem; /* p-6 */
+  border-radius: 0.5rem; /* rounded-lg */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff; /* text-white */
+}
+
+.info-card.blue {
+  background-color: #3b82f6; /* bg-blue-500 */
+}
+
+.info-card.green {
+  background-color: #22c55e; /* bg-green-500 */
+}
+
+.info-card-title {
+  font-size: 1.25rem; /* text-xl */
+  font-weight: 600; /* font-semibold */
+  margin-bottom: 0.5rem; /* mb-2 */
+}
+
+.info-card-value {
+  font-size: 2.25rem; /* text-4xl */
+  font-weight: 700; /* font-bold */
+}
+
+.sales-list-section,
+.chart-section {
+  background-color: #ffffff; /* bg-white for chart, bg-gray-50 for list */
+  padding: 1.5rem; /* p-6 */
+  border-radius: 0.5rem; /* rounded-lg */
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06); /* shadow-md */
+  border: 1px solid #e5e7eb; /* border border-gray-200 */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Added for chart section specific alignment */
+  justify-content: center; /* Added for chart section specific alignment */
+  width: 500px;
+}
+
+.sales-list-section {
+  background-color: #f9fafb; /* bg-gray-50 */
+}
+
+.section-title {
+  font-size: 1.5rem; /* text-2xl */
+  font-weight: 700; /* font-bold */
+  color: #1f2937; /* text-gray-800 */
+  margin-bottom: 1rem; /* mb-4 */
+  text-align: center;
+}
+
+.list-item-container {
+  width: 100%; /* Ensure full width for list items */
+}
+
+.list-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #ffffff; /* bg-white */
+  padding: 0.75rem; /* p-3 */
+  border-radius: 0.375rem; /* rounded-md */
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); /* shadow-sm */
+}
+
+.list-item-service {
+  font-weight: 500; /* font-medium */
+  color: #374151; /* text-gray-700 */
+}
+
+.list-item-amount {
+  font-weight: 600; /* font-semibold */
+  color: #1d4ed8; /* text-blue-700 */
+}
+
+/* Specific styles for loading/error messages */
+.message-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #f3f4f6; /* bg-gray-100 */
+  font-family: 'Inter', sans-serif; /* font-inter */
+}
+
+.loading-message {
+  font-size: 1.125rem; /* text-lg */
+  font-weight: 600; /* font-semibold */
+  color: #4b5563; /* text-gray-700 */
+}
+
+.error-message {
+  font-size: 1.125rem; /* text-lg */
+  font-weight: 600; /* font-semibold */
+  color: #dc2626; /* text-red-600 */
+}
+
+/* Styles for Recharts XAxis labels */
+.recharts-xAxis-label {
+  font-size: 0.75rem; /* Adjust as needed */
+  text-anchor: end;
+}
+
+/* Custom styles for the Recharts Tooltip */
+.recharts-tooltip-wrapper {
+  background-color: rgba(255, 255, 255, 0.9) !important;
+  border: 1px solid #ccc !important;
+  border-radius: 4px !important;
+  padding: 8px !important;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1) !important;
+}
+
+.recharts-tooltip-item-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.recharts-tooltip-item {
+  font-weight: bold;
+  color: #333;
+}
+
+.recharts-tooltip-item .value {
+  font-weight: normal;
+  margin-left: 5px;
+}
