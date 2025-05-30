@@ -1,9 +1,8 @@
-import React from 'react';
 import QRCode from 'react-qr-code';
 
 const QRCodeDisplay = ({ data }) => {
   return (
-      <div className="card">
+      <div className="card-qr">
         <h2>QR Code</h2>
         <QRCode value={JSON.stringify({ receiptId: data })} size={225} />
         <p>OR Number: {data}</p>

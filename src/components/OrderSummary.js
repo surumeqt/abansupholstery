@@ -1,7 +1,6 @@
 import { useRef, useState } from "react";
 import html2canvas from "html2canvas";
 
-
 const OrderSummary = ({ data, onReset, onSaveImage }) => {
   const cardRef = useRef(null);
   const [isSaved, setIsSaved] = useState(false);
@@ -51,7 +50,7 @@ Thank you for your business!
       </div>
 
       <div className="buttons-group">
-        <button onClick={handleSave} disabled={isSaving || isSaved}>
+        <button onClick={handleSave} disabled={isSaving || isSaved} className="button-saved">
         {isSaving ? "Saving..." : isSaved ? "Saved!" : "Save The Receipt"}
         </button>
         {isSaved && <button onClick={onReset}>Reset</button>}

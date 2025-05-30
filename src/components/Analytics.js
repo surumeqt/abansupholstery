@@ -4,9 +4,8 @@ import { api } from '../convex/_generated/api';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer
 } from 'recharts';
-import '../styles/Analytics.css'; // Import the CSS file
+import '../styles/Analytics.css';
 
-// Helper function to format currency
 const formatCurrency = (amount) => {
   if (typeof amount === 'string' && amount.startsWith('₱')) {
     return amount;
@@ -33,23 +32,19 @@ function Analytics() {
     );
   }
 
-  // --- Analytics Calculations ---
   const totalSales = receipts.reduce((sum, receipt) => sum + (receipt.price || 0), 0);
   const numberOfReceipts = receipts.length;
 
-  // Calculate sales by service
   const salesByService = receipts.reduce((acc, receipt) => {
     const service = receipt.serviceName || 'Unknown Service';
     acc[service] = (acc[service] || 0) + (receipt.price || 0);
     return acc;
   }, {});
 
-  // Convert salesByService object to an array for rendering
   const salesByServiceArray = Object.entries(salesByService).map(([service, amount]) => ({
     service,
     amount,
   }));
-  // Sort by amount descending for the list, and for consistent chart display
   salesByServiceArray.sort((a, b) => b.amount - a.amount);
 
 
@@ -62,23 +57,23 @@ function Analytics() {
           <p className="no-data-message">No data available for analytics.</p>
         ) : (
           <div className="content-layout">
-            {/* Left Column for Cards and Sales by Service List */}
+            {}
             <div className="dashboard-section">
               <div className="card-grid">
-                {/* Total Sales Card */}
+                {}
                 <div className="info-card blue">
                   <h3 className="info-card-title">Total Sales</h3>
                   <p className="info-card-value">{formatCurrency(totalSales)}</p>
                 </div>
 
-                {/* Number of Receipts Card */}
+                {}
                 <div className="info-card green">
                   <h3 className="info-card-title">Total Receipts</h3>
                   <p className="info-card-value">{numberOfReceipts}</p>
                 </div>
               </div>
 
-              {/* Sales by Service Section (List) */}
+              {}
               <div className="sales-list-section">
                 <h3 className="section-title">Sales by Service (List)</h3>
                 {salesByServiceArray.length === 0 ? (
@@ -96,7 +91,7 @@ function Analytics() {
               </div>
             </div>
 
-            {/* Right Column for the Graph */}
+            {}
             <div className="chart-section">
               <h3 className="section-title">Sales by Service (Chart)</h3>
               {salesByServiceArray.length === 0 ? (
@@ -112,11 +107,10 @@ function Analytics() {
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis
                       dataKey="service"
-                      angle={-45} // Rotate labels by -45 degrees
+                      angle={-45}
                       textAnchor="end"
                       height={100}
                       interval={0}
-                      // Add a custom class for styling the X-axis labels if needed
                       className="recharts-xAxis-label"
                     />
                     <YAxis tickFormatter={(value) => formatCurrency(value)} />

@@ -34,127 +34,200 @@ body, html, #root {
   margin-right: 16px;
 }
 
-/* --- Content Wrapper for Initial and Summary Views --- */
 .app-content-wrapper {
-  flex: 1; /* Allows it to take remaining height */
+  flex: 1;
   display: flex;
-  width: 200%; /* Holds both initial and summary views side by side */
-  transition: transform 0.5s ease-in-out; /* Animation for sliding */
+  width: 200%;
+  transition: transform 0.5s ease-in-out;
 }
 
 .app-content-wrapper.show-summary {
-  transform: translateX(-50%); /* Slide to show the summary view */
+  transform: translateX(-50%);
 }
 
-/* Animation class for when the slide is triggered */
 .app-content-wrapper.animate-summary {
   transition: transform 0.5s ease-in-out;
 }
 
-/* --- Initial View Screen --- */
 .initial-view-screen {
   flex: 1;
-  background-color: #018ADB;
+  background-color: #004581;
   display: flex;
   justify-content: center;
   padding: 20px;
   box-sizing: border-box;
   gap: 50px;
+  align-items: flex-start;
 }
 
 .left-panel-content {
   flex-shrink: 0;
-  background-color: #f5f5f5;
   width: 49%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   height: 100%;
+  padding-top: 20px;
+  box-sizing: border-box;
 }
 
 .left-panel-button-grid {
-  display: flex;
-  
-  gap: 100px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 20px;
+  width: 100%;
+  max-width: 500px;
+  padding: 20px;
+  box-sizing: border-box;
+  margin: auto;
 }
 
 .right-panel-content {
   width: 50%;
+  padding: 15px 20px;
   display: flex;
-  background-color: #97CBDC;
   justify-content: center;
-  align-items: center;
+  align-self: center;
 }
 
-/* --- Summary View Screen --- */
 .summary-view-screen {
   flex: 1;
   display: flex;
-  flex-direction: column; /* Stack OrderSummary and QRCodeDisplay vertically */
-  justify-content: center; /* Center content vertically */
-  align-items: center; /* Center content horizontally */
-  gap: 20px; /* Space between OrderSummary and QRCodeDisplay */
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
   padding: 20px;
   box-sizing: border-box;
-  background-color: #018ADB; /* Background for summary screen */
+  background-color: #018ADB;
 }
 
-.summary-container{
+.summary-container {
   display: flex;
   gap: 100px;
 }
 
-.order-summary{
+.order-summary {
   background-color: #f5f5f5;
-  padding: 20px;
+  padding: 25px;
+  width: 500px;
   border-radius: 20px;
 }
-.qr-display{
+.qr-display {
   background-color: #f5f5f5;
-  padding: 40px;
   border-radius: 20px;
+  height: fit-content;
+  padding: 12px 14px;
+  width: 400px;
+  justify-items: center;
+  align-self: center;
 }
-/* --- Saved Receipts View --- */
+
 .saved-receipts-view {
-  align-items: center;
+  display: flex;
+  justify-content: center;
+  gap: 50px;
   padding-top: 20px;
-  height: 1000px;
-  box-sizing: border-box;
+  height: 100vh;
   background-color: #f5f5f5;
+  box-sizing: border-box;
 }
 
-/* --- Button Styles (retained) --- */
+.button-wrapper {
+  display: flex;
+  flex-direction: column;
+  margin-left: 12px;
+}
 
-.buttons-group{
-  justify-self: center;
+.back-button,
+.filter-button,
+.verify-button {
+  height: fit-content;
+  padding: 10px 15px;
+  background-color: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  margin-bottom: 20px;
+  width: 200px;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.back-button {
+  font-size: 16px;
+  align-self: flex-start;
+  margin-top: 0;
+  background-color: rgba(193, 12, 12, 0.925);
+}
+
+.filter-button,
+.verify-button {
+  align-self: center;
+  margin-top: 20px;
+}
+
+.filter-button:hover,
+.verify-button:hover {
+  background-color: #5a6268;
+}
+
+.back-button:hover {
+  background-color: #ff2525;
+}
+.analytics-view {
+  display: flex;
+  flex-direction: flex-start;
+  width: fit-content;
+  gap: 50px;
+  padding: 10px 15px;
+  align-self: flex-start;
 }
 .check-receipt,
-.analytics {
-  padding: 18px 20px;
-  background-color: #004581;
+.analytics,
+.settings-button,
+.about-button {
+  padding: 18px 10px;
+  background-color:#018ADB;
   color: white;
   border: none;
   border-radius: 6px;
   font-size: 16px;
   cursor: pointer;
-  width: 100%; /* Make buttons fill the grid column */
+  width: 100%;
+  aspect-ratio: 1 / 1;
   transition: transform 0.3s ease-in-out, background-color 0.3s ease;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  text-align: center;
 }
 
 .check-receipt:hover,
-.analytics:hover {
+.analytics:hover,
+.settings-button:hover,
+.about-button:hover {
   transform: scale(1.05);
   background-color: #018ADB;
 }
 
 .check-receipt:active,
-.analytics:active {
+.analytics:active,
+.settings-button:active,
+.about-button:active {
   transform: scale(0.98);
   background-color: #003366;
 }
 
-/* --- Service Info Card Layout (used by ServiceInfo component) (retained) --- */
 .service-info-card {
   background: white;
   padding: 1.5rem;
@@ -168,14 +241,12 @@ body, html, #root {
   flex-direction: column;
   align-items: center;
 }
-
 .service-info-card h2 {
   font-size: 24px;
   color: #312C51;
   margin-bottom: 20px;
   text-align: center;
 }
-
 .client-info {
   display: flex;
   flex-direction: column;
@@ -183,7 +254,6 @@ body, html, #root {
   margin-bottom: 20px;
   width: 100%;
 }
-
 .input-field {
   width: 100%;
   padding: 12px;
@@ -193,18 +263,15 @@ body, html, #root {
   font-size: 16px;
   box-sizing: border-box;
 }
-
 .input-field:focus {
   border-color: #97CBDC;
   outline: none;
   box-shadow: 0 0 0 3px rgba(151, 203, 220, 0.3);
 }
-
 textarea.input-field {
   height: 100px;
   resize: vertical;
 }
-
 .submit-btn {
   padding: 12px 20px;
   background-color: #004581;
@@ -217,18 +284,14 @@ textarea.input-field {
   margin-top: 10px;
   transition: background-color 0.3s ease;
 }
-
 .submit-btn:hover {
   transform: scale(1.05);
   background-color: #018ADB;
 }
-
 .submit-btn:active {
   transform: scale(0.98);
   background-color: #003366;
 }
-
-/* Order Summary Container (used by OrderSummary component) (retained) */
 .order-summary-container {
   display: flex;
   flex-direction: column;
@@ -240,14 +303,17 @@ textarea.input-field {
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
-
 .card h2 {
   font-size: 24px;
   color: #312C51;
   margin-bottom: 20px;
   text-align: center;
 }
-
+.card-qr{
+  width: fit-content;
+  text-align: center;
+  padding: 12px 14px;
+}
 .dashboard{
   display: flex;
   flex-direction: column;
@@ -258,69 +324,293 @@ textarea.input-field {
   max-width: 600px;
   margin: auto;
 }
-
 .receipt-text {
-  white-space: pre-wrap;
   text-align: center;
   margin-bottom: 20px;
   width: 100%;
-  word-wrap: break-word;
   font-size: 14px;
 }
-
-/* Back button for Saved Receipts view (retained) */
-.back-button {
-  padding: 10px 15px;
-  background-color: #6c757d;
-  color: white;
-  border: none;
-  border-radius: 5px;
+.buttons-group{
+  justify-self: center;
+  align-self: center;
+  font-size: 2em;
+  color: #666;
   cursor: pointer;
-  margin-bottom: 20px;
-  transition: background-color 0.3s ease;
+  padding: 0 5px;
+}
+.buttons-group button {
+  border: none;
+  background-color: #018ADB;
+  padding: 12px;
+  border-radius: 10px;
+}
+.button-saved{
+  margin-right: 5px;
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  animation: fadeIn 0.3s ease-out;
 }
 
-.back-button:hover {
-  background-color: #5a6268;
+.modal-content {
+  background: white;
+  padding: 25px;
+  border-radius: 12px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  max-width: 500px;
+  width: 90%;
+  position: relative;
+  animation: slideIn 0.3s ease-out;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 15px;
+  margin-bottom: 15px;
+}
+
+.modal-title {
+  font-size: 1.8em;
+  color: #002d72;
+  margin: 0;
+}
+
+.modal-close-button {
+  background: none;
+  border: none;
+  font-size: 2em;
+  color: #666;
+  cursor: pointer;
+  padding: 0 5px;
+  transition: color 0.2s ease;
+}
+
+.modal-close-button:hover {
+  color: #333;
+}
+
+.modal-body {
+  flex-grow: 1;
+}
+
+.date-filter-modal .input-group {
+  margin-bottom: 15px;
+}
+
+.date-filter-modal label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #333;
+}
+
+.modal-input-field {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.modal-input-field:focus {
+  border-color: #018ADB;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(1, 138, 219, 0.2);
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 15px;
+  margin-top: 20px;
+  padding-top: 15px;
+  border-top: 1px solid #eee;
+}
+
+.modal-button {
+  padding: 12px 25px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.apply-button {
+  background-color: #004581;
+  color: white;
+}
+
+.apply-button:hover {
+  background-color: #018ADB;
+  transform: translateY(-2px);
+}
+
+.clear-button {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.clear-button:hover {
+  background-color: #d0d0d0;
+  transform: translateY(-2px);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { transform: translateY(-50px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.settings-view,
+.about-view {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding-top: 20px;
+  background-color: #f5f5f5;
+  box-sizing: border-box;
+}
+
+.settings-view h2,
+.about-view h2 {
+  font-size: 2em;
+  color: #002d72;
+  margin-bottom: 20px;
 }
 
 @media (max-width: 768px) {
-  .initial-view-screen {
+  .main-heading-container {
     flex-direction: column;
-    gap: 20px;
-    padding: 15px;
-    justify-content: flex-start;
-  }
-
-  .main-heading {
-    font-size: 1.8em;
-  }
-
-  .left-panel-content {
-    width: 100%;
-    padding: 0;
-    height: auto; /* Allow height to adjust */
-    margin-bottom: 0;
-  }
-
-  .left-panel-button-grid {
-    grid-gap: 15px;
-    max-width: unset; /* Remove max-width on smaller screens */
-  }
-
-  .service-info-card,
-  .order-summary-container {
-    max-width: 95%;
-    padding: 1rem;
+    padding: 10px;
   }
 
   .logo {
-    width: 120px;
+    width: 100px;
     margin-right: 0;
     margin-bottom: 10px;
   }
 
-  .main-heading-container {
+  .main-heading {
+    font-size: 1.8em;
+    text-align: center;
+  }
+
+  .app-content-wrapper {
     flex-direction: column;
+    width: 100%;
+    height: auto;
+  }
+
+  .app-content-wrapper.show-summary {
+    transform: translateY(-100%);
+  }
+
+  .initial-view-screen {
+    flex-direction: column;
+    height: auto;
+    padding: 10px;
+    gap: 20px;
+  }
+
+  .left-panel-content,
+  .right-panel-content {
+    width: 100%;
+    height: auto;
+    padding: 10px;
+  }
+
+  .left-panel-button-grid {
+    grid-template-columns: 1fr;
+    grid-gap: 15px;
+    max-width: unset;
+    padding: 10px;
+  }
+
+  .check-receipt,
+  .analytics,
+  .settings-button,
+  .about-button {
+    padding: 15px 10px;
+    font-size: 14px;
+    gap: 5px;
+    aspect-ratio: unset;
+    height: auto;
+  }
+
+  .summary-container {
+    flex-direction: column;
+    gap: 30px;
+  }
+
+  .order-summary,
+  .qr-display {
+    padding: 20px;
+  }
+
+  .service-info-card {
+    padding: 1rem;
+  }
+
+  .input-field {
+    padding: 10px;
+  }
+
+  .modal-content {
+    padding: 20px;
+    margin: 15px;
+  }
+
+  .modal-title {
+    font-size: 1.5em;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .modal-button {
+    width: 100%;
+  }
+
+  .settings-view .back-button,
+  .about-view .back-button {
+    width: fit-content;
+    margin-bottom: 20px;
+  }
+
+  .settings-view .back-button,
+  .about-view .back-button,
+  .analytics-view .back-button {
+    background-color: #003366;
+    width: fit-content;
+    padding: 10px 15px;
+    align-self: flex-start;
+    margin-left: 20px;
+    margin-top: 20px;
   }
 }

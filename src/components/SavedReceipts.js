@@ -1,17 +1,20 @@
 import { useQuery } from 'convex/react';
 import { api } from '../convex/_generated/api';
-import '../styles/SavedReceipts.css'; // Import the CSS file
+import React, { useEffect } from 'react';
+import '../styles/SavedReceipts.css';
 
-// Helper function to format currency
-const formatCurrency = (amount) => {
-  if (typeof amount === 'string' && amount.startsWith('₱')) {
-    return amount;
-  }
-  return `₱${parseFloat(amount).toFixed(2)}`;
-};
+function SavedReceipts({ filteredDates }) {
+  const receipts = useQuery(
+    api.CompanyReceipts.listReceiptsByDateRange,
+    {
+      startDate: filteredDates.startDate || undefined,
+      endDate: filteredDates.endDate || undefined,
+    }
+  );
 
-function SavedReceipts() {
-  const receipts = useQuery(api.CompanyReceipts.listReceipts);
+  useEffect(() => {
+    console.log("SavedReceipts component received filteredDates:", filteredDates);
+  }, [filteredDates]);
 
   if (receipts === undefined) {
     return (
@@ -21,43 +24,24 @@ function SavedReceipts() {
     );
   }
 
-  if (receipts === null) {
-    return (
-      <div className="message-container">
-        <div className="error-message">Error loading receipts. Please try again.</div>
-      </div>
-    );
-  }
-
   return (
     <div className="receipts-page-container">
       <div className="receipts-card-container">
-        <h2 className="receipts-title">Saved Receipts</h2>
-
         {receipts.length === 0 ? (
-          <p className="no-receipts-message">No receipts found.</p>
+          <p className="no-receipts-message">
+            No receipts found
+            {filteredDates.startDate || filteredDates.endDate ? " for the selected dates." : "."}
+          </p>
         ) : (
           <div className="receipts-grid">
             {receipts.map((data) => (
               <div key={data._id} className="receipt-item">
-                <pre className="receipt-text">
-                  {`==================== RECEIPT ====================
-Company: ${data.company || 'N/A'}
-TIN: ${data.TIN || 'N/A'}
-OR Number: ${data.ORnumber || 'N/A'}
-Address: ${data.companyAddress || 'N/A'}
-Date: ${data.date || 'N/A'}
-------------------------------------------------
-Client: ${data.clientName || 'N/A'}
-${data.clientAddress ? `Address: ${data.clientAddress}\n------------------------------------------------` : '------------------------------------------------'}
-Service Name: ${data.serviceName || 'N/A'}
-Service Details: ${data.serviceDetails || 'N/A'}
-
-Price: ${formatCurrency(data.price || 0)}
-================================================
-Thank you for your business!
-`}
-                </pre>
+                <img
+                  src={data.receiptUrl}
+                  alt={`Receipt ${data.ORnumber}`}
+                  className="receipt-image" // Apply a class for better styling control
+                  // Remove inline style={{ borderRadius: '8px' }} and move to CSS
+                />
               </div>
             ))}
           </div>
